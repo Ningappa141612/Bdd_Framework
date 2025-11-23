@@ -29,33 +29,6 @@ Before running the framework, ensure the following tools and dependencies are in
 
 **Maven Dependencies** (example):
 
-```xml
-
-<dependency>
-    <groupId>io.appium</groupId>
-    <artifactId>java-client</artifactId>
-    <version>8.6.0</version>
-</dependency>
-
-<dependency>
-<groupId>io.cucumber</groupId>
-<artifactId>cucumber-java</artifactId>
-<version>7.11.2</version>
-</dependency>
-
-<dependency>
-<groupId>io.cucumber</groupId>
-<artifactId>cucumber-junit</artifactId>
-<version>7.11.2</version>
-</dependency>
-
-<dependency>
-<groupId>org.seleniumhq.selenium</groupId>
-<artifactId>selenium-java</artifactId>
-<version>4.12.0</version>
-</dependency>
-```
-
 ---
 
 ## 🚀 How to Run Tests
