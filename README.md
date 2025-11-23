@@ -67,7 +67,7 @@ mvn clean test -Dcucumber.options="--tags @web"
 After execution:
 
 ```bash
-allure serve target/allure-results
+allure serve allure-results
 ```
 
 ---
