@@ -1,0 +1,19 @@
+{
+  "android": {
+    "platformName": "Android",
+    "appium:automationName": "UIAutomator2",
+    "appium:deviceName": "emulator-5554",
+    "appium:app": "C:\\Users\\Rangaswamy D\\OneDrive\\Desktop\\BddFrameWork\\src\\main\\resources\\apk\\Android.SauceLab.apk",
+    "appium:appPackage": "com.swaglabsmobileapp",
+    "appium:appActivity": "com.swaglabsmobileapp.MainActivity",
+
+    "appium:uiautomator2ServerLaunchTimeout": 80000,
+    "appium:newCommandTimeout": 300,
+    "appium:autoGrantPermissions": true
+  },
+  "ios": {
+    "platformName": "iOS",
+    "automationName": "XCUITest",
+    "bundleId": "com.example.iosapp"
+  }
+}
