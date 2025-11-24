@@ -1,15 +1,12 @@
 package org.saucelabs.runners;
 
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.android.AndroidDriver;
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
+import org.saucelabs.utilty.driverUtils.DriverFactory;
 import org.saucelabs.utilty.driverUtils.DriverManager;
 import org.saucelabs.utilty.driverUtils.PlatformUtils;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.*;
 import org.saucelabs.utilty.report.AllureReportCleaner;
 
 @CucumberOptions(
@@ -23,6 +20,7 @@ import org.saucelabs.utilty.report.AllureReportCleaner;
 )
 public class TestRunner extends AbstractTestNGCucumberTests
 {
+    private AppiumDriver driver = null;
 
     @BeforeSuite
     public void cleanAllureReportsBeforeExecution()
@@ -30,10 +28,21 @@ public class TestRunner extends AbstractTestNGCucumberTests
         AllureReportCleaner.cleanAllureReport();
     }
 
+    @BeforeClass
+    public void setup()
+    {
+        if (PlatformUtils.isAndroid() || PlatformUtils.isIos())
+        {
+            DriverManager.setMobileDriver(DriverFactory.createMobileDriver());
+        } else
+        {
+            DriverManager.setWebDriver(DriverFactory.createWebDriver());
+        }
+    }
+
     @AfterMethod
     public void killAndRelaunch()
     {
-        AppiumDriver driver = null;
 
         if (PlatformUtils.isAndroid())
         {
