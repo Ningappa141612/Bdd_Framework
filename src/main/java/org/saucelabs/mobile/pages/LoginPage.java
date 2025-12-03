@@ -1,5 +1,6 @@
 package org.saucelabs.mobile.pages;
 
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import org.openqa.selenium.WebElement;
@@ -25,11 +26,12 @@ public class LoginPage extends CommonMobileUtility
     private WebElement errorMessage;
     private String errorMessageText = "Username and password do not match any user in this service.";
 
-    public LoginPage()
+    public LoginPage(AppiumDriver appiumDriver)
     {
         super();
         PageFactory.initElements(new AppiumFieldDecorator(appiumDriver), this);
     }
+
 
     public void isSwagLogoToBeDisplayed()
     {

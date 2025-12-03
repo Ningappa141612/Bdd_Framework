@@ -1,0 +1,7 @@
+{
+  "register_api": {
+    "username": "string",
+    "email": "string",
+    "password": "string"
+  },
+}

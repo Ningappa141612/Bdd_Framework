@@ -1,16 +1,44 @@
 package org.saucelabs.mobile.stepdefinitions;
 
+import io.appium.java_client.AppiumDriver;
+import io.cucumber.java.Before;
 import io.cucumber.java.PendingException;
 import io.cucumber.java.bs.A;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.saucelabs.mobile.pages.CartAndCheckout;
+import org.saucelabs.mobile.pages.ProductCatLog;
+import org.saucelabs.utilty.CommonMobileUtility;
+import org.saucelabs.utilty.driverUtils.DriverFactory;
+import org.saucelabs.utilty.driverUtils.DriverManager;
 import org.testng.Assert;
 
 public class CartAndCheckoutSteps
 {
-    CartAndCheckout cartAndCheckout = new CartAndCheckout();
+    private AppiumDriver driver;
+    private CartAndCheckout cartAndCheckout;
+
+    @Before
+    public void setUp()
+    {
+        // Lazy initialization
+        driver = DriverManager.getMobileDriver();
+        if (driver == null)
+        {
+            driver = DriverFactory.createMobileDriver();
+            DriverManager.setMobileDriver(driver);
+        }
+
+        // Initialize page objects
+        cartAndCheckout = new CartAndCheckout(driver);
+
+        if (cartAndCheckout instanceof CommonMobileUtility)
+        {
+            ((CommonMobileUtility) cartAndCheckout).initDriver();
+        }
+    }
+
 
     @When("the user adds the product to the cart")
     public void theUserAddsTheProductToTheCart()

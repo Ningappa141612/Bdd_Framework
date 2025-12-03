@@ -3,7 +3,10 @@ package org.saucelabs.utilty.driverUtils;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
+import net.lightbody.bmp.BrowserMobProxy;
+import net.lightbody.bmp.client.ClientUtil;
 import org.json.JSONObject;
+import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -14,6 +17,7 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
+import org.saucelabs.utilty.proxy.ProxyManager;
 
 import java.net.URL;
 import java.net.MalformedURLException;
@@ -82,8 +86,15 @@ public final class DriverFactory
         try
         {
             JSONObject jsonCaps = CapabilityReader.loadCapabilities("android");
+
             DesiredCapabilities caps = new DesiredCapabilities(jsonCaps.toMap());
             URL url = new URL(APPIUM_SERVER_URL);
+            if (ConfigReader.get("isProxyRequired").equalsIgnoreCase("tru"))
+            {
+                BrowserMobProxy proxy = ProxyManager.getProxy();
+                Proxy seleniumProxy = ClientUtil.createSeleniumProxy(proxy);
+                caps.setCapability("proxy", seleniumProxy);
+            }
             return new AndroidDriver(url, caps);
         } catch (MalformedURLException e)
         {
@@ -101,6 +112,13 @@ public final class DriverFactory
             JSONObject jsonCaps = CapabilityReader.loadCapabilities("ios");
             DesiredCapabilities caps = new DesiredCapabilities(jsonCaps.toMap());
             URL url = new URL(APPIUM_SERVER_URL);
+            if (ConfigReader.get("isProxyRequired").equalsIgnoreCase("tru"))
+            {
+                BrowserMobProxy proxy = ProxyManager.getProxy();
+                Proxy seleniumProxy = ClientUtil.createSeleniumProxy(proxy);
+                caps.setCapability("proxy", seleniumProxy);
+            }
+
             return new IOSDriver(url, caps);
         } catch (MalformedURLException e)
         {

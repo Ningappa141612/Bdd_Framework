@@ -19,7 +19,7 @@ public class ProductCatLog extends CommonMobileUtility
     private WebElement backToProductButton;
 
 
-    public ProductCatLog()
+    public ProductCatLog(AppiumDriver appiumDriver)
     {
         super();
         PageFactory.initElements(new AppiumFieldDecorator(appiumDriver), this);

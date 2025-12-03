@@ -1,5 +1,6 @@
 package org.saucelabs.mobile.pages;
 
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.cucumber.java.sl.In;
@@ -46,7 +47,7 @@ public class CartAndCheckout extends CommonMobileUtility
     private WebElement errorMessage;
 
 
-    public CartAndCheckout()
+    public CartAndCheckout(AppiumDriver appiumDriver)
     {
         super();
         PageFactory.initElements(new AppiumFieldDecorator(appiumDriver), this);

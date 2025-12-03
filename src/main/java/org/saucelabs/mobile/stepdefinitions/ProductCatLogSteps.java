@@ -1,14 +1,41 @@
 package org.saucelabs.mobile.stepdefinitions;
 
+import io.appium.java_client.AppiumDriver;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.saucelabs.mobile.pages.LoginPage;
 import org.saucelabs.mobile.pages.ProductCatLog;
+import org.saucelabs.utilty.CommonMobileUtility;
+import org.saucelabs.utilty.driverUtils.DriverFactory;
+import org.saucelabs.utilty.driverUtils.DriverManager;
 import org.testng.Assert;
 
 public class ProductCatLogSteps
 {
-    ProductCatLog productCatLog = new ProductCatLog();
+    private AppiumDriver driver;
+    private ProductCatLog productCatLog;
+
+    @Before
+    public void setUp()
+    {
+        // Lazy initialization
+        driver = DriverManager.getMobileDriver();
+        if (driver == null)
+        {
+            driver = DriverFactory.createMobileDriver();
+            DriverManager.setMobileDriver(driver);
+        }
+
+        // Initialize page objects
+        productCatLog = new ProductCatLog(driver);
+
+        if (productCatLog instanceof CommonMobileUtility)
+        {
+            ((CommonMobileUtility) productCatLog).initDriver();
+        }
+    }
 
     @Then("the user should see the product catalog page")
     public void verifyProductPage()

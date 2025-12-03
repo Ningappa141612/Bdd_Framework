@@ -26,17 +26,19 @@ public class CommonMobileUtility
 
     public CommonMobileUtility()
     {
+        // Do NOT initialize driver here
+    }
 
+    public void initDriver()
+    {
         this.appiumDriver = DriverManager.getMobileDriver();
-
         if (appiumDriver == null)
         {
-            throw new RuntimeException("MobileDriver not initialized! Call DriverManager.setMobileDriver() before using utilities.");
+            throw new RuntimeException("MobileDriver is not initialized! Call DriverManager.setMobileDriver() before using utilities.");
         }
 
         String platform = appiumDriver.getCapabilities()
-                .getPlatformName().toString()
-                .toLowerCase();
+                .getPlatformName().toString().toLowerCase();
 
         if (platform.contains("ios") && appiumDriver instanceof IOSDriver)
         {
